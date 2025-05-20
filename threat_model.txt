@@ -1,0 +1,27 @@
+https://owasp.org/www-community/Threat_Modeling_Process
+
+1. Data Flow Diagram (Level 0-1)
+2. Label Trusts
+3. Identify Threats
+
+
+STRIDE vs trust boundaries
+
+Spoofing
+Tampering
+Information Disclosure
+Denial of Service
+Escalation of Privileges
+
+https://aivillage.org/large%20language%20models/threat-modeling-llm/
+
+
+User
+Spoofing   Pas de 2FA (vuln01)
+Repudiation Pas de log (vuln02)
+
+
+Web app
+Tempering Pas de validation d'input (vuln03)
+Repudiation Pas de log d'action user (vuln04)
+Denial of service Pas de WAF (vuln05)

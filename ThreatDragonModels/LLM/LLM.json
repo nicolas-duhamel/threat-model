@@ -31,13 +31,14 @@
                 "text": "LLM"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 1,
             "ports": {
               "groups": {
                 "top": {
@@ -121,19 +122,66 @@
               ]
             },
             "id": "200f68f7-afb9-4abf-bb5a-6ce64a287c9d",
-            "zIndex": 1,
             "data": {
               "type": "tm.Process",
               "name": "LLM",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "e0c791b0-87b7-4aed-b259-4abed27dc55c",
+                  "title": "Leak of sensitive data",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "LLM unable to filter sensitive data (like system prompt or private documents)",
+                  "mitigation": "Treat all LLM output as untrusted and enforce necessary restrictions to data or actions the LLM requests.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": ""
+                },
+                {
+                  "id": "ddb75bec-61b1-4a95-98dc-348a51877ffb",
+                  "title": "Jailbreak",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Spoofing",
+                  "description": "Users can modify the system-level prompt restrictions to \"jailbreak\" the LLM and overwrite previous controls in place.",
+                  "mitigation": "Treat all LLM output as untrusted and enforce necessary restrictions to data or actions the LLM requests.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": ""
+                },
+                {
+                  "id": "b849859f-40bf-4b59-a92d-cdd922085bdc",
+                  "title": "LLM parameters",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Modification of the LLM parameters",
+                  "mitigation": "Limit the API attack surface that is exposed to external prompt sources",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 4,
+                "tampering": 2,
+                "repudiation": 0,
+                "informationDisclosure": 4,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -147,16 +195,17 @@
             },
             "attrs": {
               "text": {
-                "text": "Web app"
+                "text": "RAG"
               },
               "body": {
                 "stroke": "#333333",
                 "strokeWidth": 1.5,
-                "strokeDasharray": null
+                "strokeDasharray": "4 3"
               }
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 2,
             "ports": {
               "groups": {
                 "top": {
@@ -240,12 +289,11 @@
               ]
             },
             "id": "5908f227-60f8-4aed-8322-428c8ba33e26",
-            "zIndex": 2,
             "data": {
               "type": "tm.Process",
-              "name": "Web app",
+              "name": "RAG",
               "description": "",
-              "outOfScope": false,
+              "outOfScope": true,
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
               "handlesCardPayment": false,
@@ -257,8 +305,8 @@
           },
           {
             "position": {
-              "x": 280,
-              "y": 316
+              "x": 200,
+              "y": 340
             },
             "size": {
               "width": 120,
@@ -266,19 +314,22 @@
             },
             "attrs": {
               "text": {
-                "text": "Database"
+                "text": "Local store"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 3,
             "ports": {
               "groups": {
                 "top": {
@@ -362,26 +413,45 @@
               ]
             },
             "id": "b7786d51-11df-4ba4-992e-64f565113a7d",
-            "zIndex": 3,
             "data": {
               "type": "tm.Store",
-              "name": "Database",
+              "name": "Local store",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "4293befe-4e88-452f-b469-56b2cb21d70a",
+                  "title": "Access of private data",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Access to sensitive documents",
+                  "mitigation": "Enforce standard authentication/authorization controls prior to data access.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 4,
+                "denialOfService": 0
+              }
             }
           },
           {
             "position": {
-              "x": 697,
-              "y": 240
+              "x": 370,
+              "y": 340
             },
             "size": {
               "width": 120,
@@ -389,19 +459,22 @@
             },
             "attrs": {
               "text": {
-                "text": "Private documents"
+                "text": "Cloud Store"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 4,
             "ports": {
               "groups": {
                 "top": {
@@ -485,26 +558,45 @@
               ]
             },
             "id": "e42b8f10-1f7d-4c55-a85c-5c2d059081e9",
-            "zIndex": 4,
             "data": {
               "type": "tm.Store",
-              "name": "Private documents",
+              "name": "Cloud Store",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "ca0b2cc6-0a01-48ac-a186-797b1aa84a33",
+                  "title": "Access of private data",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Access to sensitive documents",
+                  "mitigation": "Enforce standard authentication/authorization controls prior to data access.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 3,
+                "denialOfService": 0
+              }
             }
           },
           {
             "position": {
-              "x": 697,
-              "y": 120
+              "x": 500,
+              "y": 50
             },
             "size": {
               "width": 60,
@@ -515,13 +607,14 @@
                 "text": "Tools"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 5,
             "ports": {
               "groups": {
                 "top": {
@@ -605,25 +698,46 @@
               ]
             },
             "id": "518347cb-2ba6-4bc2-878e-564fed0a48b7",
-            "zIndex": 5,
             "data": {
               "type": "tm.Process",
               "name": "Tools",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "3ed7a243-d9c8-4753-b9e5-554cf7a8f89d",
+                  "title": "SSRF",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "Server-side output can be fed directly back into LLM",
+                  "mitigation": "Perform appropriate filtering on server-side function output.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 1
+              }
             }
           },
           {
             "position": {
-              "x": 109,
-              "y": 180
+              "x": 99,
+              "y": 120
             },
             "size": {
               "width": 112.5,
@@ -631,16 +745,17 @@
             },
             "attrs": {
               "text": {
-                "text": "User"
+                "text": "Browser"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 6,
             "ports": {
               "groups": {
                 "top": {
@@ -724,16 +839,33 @@
               ]
             },
             "id": "5270b97b-6f8d-41d8-bfa6-885c77b6c4d4",
-            "zIndex": 6,
             "data": {
               "type": "tm.Actor",
-              "name": "User",
+              "name": "Browser",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "providesAuthentication": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "53e3f8f1-c83b-4a87-85f1-3433a97e60cf",
+                  "title": "Insufficient logging",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Repudiation",
+                  "description": "Users deny making harmful prompts or using the LLM for malicious purposes.",
+                  "mitigation": "Systematic uses of an audit trail",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "repudiation": 1
+              }
             }
           },
           {
@@ -858,14 +990,154 @@
             "labels": [
               ""
             ],
+            "id": "793ccb8f-2938-4cdd-90fb-70476ac79b39",
+            "source": {
+              "x": 340,
+              "y": 240
+            },
+            "target": {
+              "cell": "b7786d51-11df-4ba4-992e-64f565113a7d",
+              "port": "6f5efd25-d843-48a8-8bea-17960b56b8d6"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": true,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              ""
+            ],
             "id": "0a69bf77-7505-4023-9fb4-fb6c327ade83",
             "source": {
-              "x": 560,
-              "y": 210
+              "cell": "5908f227-60f8-4aed-8322-428c8ba33e26",
+              "port": "07270c58-93f6-48f7-aad8-f6a294862334"
             },
             "target": {
               "cell": "e42b8f10-1f7d-4c55-a85c-5c2d059081e9",
-              "port": "6e9e6b3e-cd61-4742-ab3c-b301fa168e44"
+              "port": "6f5efd25-d843-48a8-8bea-17960b56b8d6"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": true,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              ""
+            ],
+            "id": "9e4282d7-e035-4039-bb3b-1fba0dd05d21",
+            "source": {
+              "cell": "79da6135-b7df-4445-be76-aa0bc4aea0ea",
+              "port": "89c31149-39ec-4f3c-871c-72a0c40d6882"
+            },
+            "target": {
+              "cell": "5908f227-60f8-4aed-8322-428c8ba33e26",
+              "port": "8feb6569-2975-4d3d-9054-eac265119f2d"
+            }
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "Trust Boundary",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "labels": [
+              "Trust Boundary"
+            ],
+            "id": "04bdc325-5b04-4bad-ab0b-b0e2983aacb6",
+            "source": {
+              "x": 260,
+              "y": 100
+            },
+            "target": {
+              "x": 260,
+              "y": 290
+            }
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "Trust Boundary",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "labels": [
+              "Trust Boundary"
+            ],
+            "id": "275a5179-865e-45e1-a80e-cfddce54ccce",
+            "source": {
+              "x": 230,
+              "y": 300
+            },
+            "target": {
+              "x": 480,
+              "y": 300
             }
           },
           {
@@ -905,11 +1177,38 @@
             "id": "731c38d1-d4f3-4a8c-8309-b838ce08e9be",
             "source": {
               "cell": "200f68f7-afb9-4abf-bb5a-6ce64a287c9d",
-              "port": "5fcd06d1-b882-4381-a6fe-84efadd35cc1"
+              "port": "7df4bae2-21d9-487b-90c7-820c44a96ff6"
             },
             "target": {
               "cell": "518347cb-2ba6-4bc2-878e-564fed0a48b7",
-              "port": "8feb6569-2975-4d3d-9054-eac265119f2d"
+              "port": "07270c58-93f6-48f7-aad8-f6a294862334"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "Trust Boundary",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "labels": [
+              "Trust Boundary"
+            ],
+            "id": "76c5b935-f212-46d2-a67e-6a7cb5e24bd6",
+            "source": {
+              "x": 610,
+              "y": 150
+            },
+            "target": {
+              "x": 460,
+              "y": 150
             },
             "vertices": []
           },
@@ -947,14 +1246,490 @@
             "labels": [
               ""
             ],
-            "id": "793ccb8f-2938-4cdd-90fb-70476ac79b39",
+            "id": "0dd28c74-c17d-4077-a26b-16015c15dc3a",
             "source": {
-              "x": 340,
-              "y": 240
+              "cell": "200f68f7-afb9-4abf-bb5a-6ce64a287c9d",
+              "port": "5fcd06d1-b882-4381-a6fe-84efadd35cc1"
             },
             "target": {
-              "cell": "b7786d51-11df-4ba4-992e-64f565113a7d",
-              "port": "6f5efd25-d843-48a8-8bea-17960b56b8d6"
+              "cell": "e83f61c2-e33c-4981-a176-d345c65cb8e6",
+              "port": "dbc1c3f6-fbb4-45a6-bedc-2385b053bca3"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": true,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              ""
+            ],
+            "id": "86af37f5-8a0c-4a15-864b-c777b7458117",
+            "source": {
+              "cell": "200f68f7-afb9-4abf-bb5a-6ce64a287c9d",
+              "port": "5fcd06d1-b882-4381-a6fe-84efadd35cc1"
+            },
+            "target": {
+              "cell": "3f4074c6-1561-4657-ac44-45eff9d058d3",
+              "port": "dbc1c3f6-fbb4-45a6-bedc-2385b053bca3"
+            }
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "Trust Boundary",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "labels": [
+              "Trust Boundary"
+            ],
+            "id": "58b758d6-fab0-4d53-aefd-1cb743caeaf3",
+            "source": {
+              "x": 630,
+              "y": 160
+            },
+            "target": {
+              "x": 630,
+              "y": 310
+            }
+          },
+          {
+            "position": {
+              "x": 99,
+              "y": 221
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "VS code"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "223be43f-a6be-4e1e-9506-72373aa871a6"
+                },
+                {
+                  "group": "right",
+                  "id": "89c31149-39ec-4f3c-871c-72a0c40d6882"
+                },
+                {
+                  "group": "bottom",
+                  "id": "b98ca1fb-2b05-48f6-a4c3-bf3ad2dc3396"
+                },
+                {
+                  "group": "left",
+                  "id": "fc233b27-4f8f-47d5-88af-1c6b5b8b98a1"
+                }
+              ]
+            },
+            "id": "79da6135-b7df-4445-be76-aa0bc4aea0ea",
+            "zIndex": 11,
+            "data": {
+              "type": "tm.Actor",
+              "name": "VS code",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 680,
+              "y": 140
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Model store"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "1ba0cd07-3413-4d76-b9a6-cc0e5e0abe80"
+                },
+                {
+                  "group": "right",
+                  "id": "0d5d5eab-6255-4e33-b5b9-af3466296792"
+                },
+                {
+                  "group": "bottom",
+                  "id": "d234c469-7802-43ce-860f-a11b013050bf"
+                },
+                {
+                  "group": "left",
+                  "id": "dbc1c3f6-fbb4-45a6-bedc-2385b053bca3"
+                }
+              ]
+            },
+            "id": "e83f61c2-e33c-4981-a176-d345c65cb8e6",
+            "zIndex": 12,
+            "data": {
+              "type": "tm.Store",
+              "name": "Model store",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "c11bee9b-8bab-493f-8dc4-800759c4297d",
+                  "title": "Weight modification",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "An attack could modify the weights to modify responses of the LLM",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 680,
+              "y": 250
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Trainning data"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "1ba0cd07-3413-4d76-b9a6-cc0e5e0abe80"
+                },
+                {
+                  "group": "right",
+                  "id": "0d5d5eab-6255-4e33-b5b9-af3466296792"
+                },
+                {
+                  "group": "bottom",
+                  "id": "d234c469-7802-43ce-860f-a11b013050bf"
+                },
+                {
+                  "group": "left",
+                  "id": "dbc1c3f6-fbb4-45a6-bedc-2385b053bca3"
+                }
+              ]
+            },
+            "id": "3f4074c6-1561-4657-ac44-45eff9d058d3",
+            "zIndex": 13,
+            "data": {
+              "type": "tm.Store",
+              "name": "Trainning data",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "2a530d01-3634-4f60-8842-3735e6ed835c",
+                  "title": "Data poisonning",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Untrusted data to train the LLM",
+                  "mitigation": "",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 7,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
             }
           }
         ]
@@ -962,6 +1737,6 @@
     ],
     "diagramTop": 1,
     "reviewer": "",
-    "threatTop": 0
+    "threatTop": 9
   }
 }
